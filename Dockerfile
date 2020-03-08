@@ -8,8 +8,10 @@ RUN apk add --no-cache squid nano curl dcron bash
 # Script to download/update ad servers list
 COPY scripts/* /
 
+
 # Log to /dev/stdout
 ADD extras/squid.d /etc/squid/squid.d
+RUN sed -i '1iinclude /etc/squid/squid.d/*.conf' $CONF_FILE
 
 # Configure squid networks
 RUN sed -i '1iacl localnet src 10.0.0.0/8     # RFC1918 possible internal network' $CONF_FILE && \
