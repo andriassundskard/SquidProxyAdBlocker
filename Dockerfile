@@ -19,10 +19,8 @@ RUN sed -i '1iacl localnet src 10.0.0.0/8     # RFC1918 possible internal networ
 # Configure squid to block ad servers
 RUN sed -i '1ihttp_access deny yoyo' $CONF_FILE && \
     sed -i '1ihttp_access deny StevenBlack' $CONF_FILE && \
-    sed -i '1ihttp_access deny AdAway' $CONF_FILE && \
     sed -i '1iacl yoyo dstdom_regex "/etc/squid/adServersListyoyo.txt"' $CONF_FILE && \
-    sed -i '1iacl StevenBlack dstdomain "/etc/squid/adServersListStevenBlack.txt"' $CONF_FILE && \
-    sed -i '1iacl AdAway dstdomain "/etc/squid/adServersListAdAway.txt"' $CONF_FILE
+    sed -i '1iacl StevenBlack dstdomain "/etc/squid/adServersListStevenBlack.txt"' $CONF_FILE
 
 # Misc conf.
 RUN sed -i '1ihttp_port 3129 transparent' $CONF_FILE

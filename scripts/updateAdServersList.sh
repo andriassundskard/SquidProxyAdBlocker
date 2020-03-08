@@ -30,22 +30,3 @@ sed -i '/0.0.0.0/d' $adserverslistfile
 
 # white lines
 sed -i '/^[[:space:]]*$/d' $adserverslistfile
-
-
-
-#####################################
-# From AdAway
-adServersListAdAway="https://adaway.org/hosts.txt"
-adserverslistAdAwayfile="/etc/squid/adServersListAdAway.txt"
-
-printf "Downloading Ad Servers list: AdAway... "
-curl -sSL "$adServersListAdAway" > $adserverslistAdAwayfile && printf "Done.\n\n"
-
-# remove squid invalid entries
-sed -i '/#/d' $adserverslistAdAwayfile
-sed -i '/::1/d' $adserverslistAdAwayfile
-sed -i '/127.0.0.1\ \ localhost/d' $adserverslistAdAwayfile
-sed -e s/127.0.0.1\ //g -i $adserverslistAdAwayfile
-
-# white lines
-sed -i '/^[[:space:]]*$/d' $adserverslistAdAwayfile
