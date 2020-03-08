@@ -25,6 +25,10 @@ RUN sed -i '1ihttp_access deny yoyo' $CONF_FILE && \
 # Misc conf.
 RUN sed -i '1ihttp_port 3129 transparent' $CONF_FILE
 
+RUN ln -sf /logdir /var/log/squid
+
+VOLUME ["/logdir"]
+
 # Proxy port
 EXPOSE 3128 3129
 
