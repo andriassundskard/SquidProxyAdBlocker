@@ -8,6 +8,9 @@ RUN apk add --no-cache squid nano curl dcron bash
 # Script to download/update ad servers list
 COPY scripts/* /
 
+# Log to /dev/stdout
+ADD extras/squid.d /etc/squid/squid.d
+
 # Configure squid networks
 RUN sed -i '1iacl localnet src 10.0.0.0/8     # RFC1918 possible internal network' $CONF_FILE && \
     sed -i '1iacl localnet src 172.16.0.0/12  # RFC1918 possible internal network' $CONF_FILE && \
@@ -24,10 +27,6 @@ RUN sed -i '1ihttp_access deny yoyo' $CONF_FILE && \
 
 # Misc conf.
 RUN sed -i '1ihttp_port 3129 transparent' $CONF_FILE
-
-RUN ln -sf /logdir /var/log/squid
-
-VOLUME ["/logdir"]
 
 # Proxy port
 EXPOSE 3128 3129
