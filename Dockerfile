@@ -13,6 +13,8 @@ COPY scripts/* /
 ADD extras/squid.d /etc/squid/squid.d
 RUN sed -i '1iinclude /etc/squid/squid.d/*.conf' $CONF_FILE
 
+RUN sed -i '1idns_v4_first on' $CONF_FILE
+
 # Configure squid networks
 RUN sed -i '1iacl localnet src 10.0.0.0/8     # RFC1918 possible internal network' $CONF_FILE && \
     sed -i '1iacl localnet src 172.16.0.0/12  # RFC1918 possible internal network' $CONF_FILE && \
