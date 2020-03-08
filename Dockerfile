@@ -1,14 +1,9 @@
-FROM debian:stable
-LABEL maintainer="Pedro Nunes <pgh.nunes@gmail.com>"
+FROM alpine:latest
 
 ENV CONF_FILE=/etc/squid/squid.conf
 
-# Update system and install squid
-RUN apt-get update && \
-    apt-get -y upgrade && \
-    apt-get install -y squid3 nano curl cron && \
-    apt-get -y autoremove --purge && \
-    apt-get clean
+# install squid
+RUN apk add --no-cache squid nano curl dcron bash
 
 # Script to download/update ad servers list
 COPY scripts/* /
