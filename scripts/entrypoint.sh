@@ -10,4 +10,8 @@ chmod 644 /dev/stdout
 
 (echo "@daily /updateAdServersList.sh") | crontab
 /bin/bash /updateAdServersList.sh
+#printf " ##########################################\n"
+#printf " # squid.conf ##################\n"
+#cat /etc/squid/squid.conf
+#printf " ##########################################\n"
 /usr/sbin/squid -N -d1

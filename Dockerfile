@@ -14,14 +14,7 @@ ADD extras/squid.d /etc/squid/squid.d
 RUN sed -i '1iinclude /etc/squid/squid.d/*.conf' $CONF_FILE
 
 RUN sed -i '1ion_unsupported_protocol tunnel all' $CONF_FILE
-
-# Configure squid networks
-RUN sed -i '1iacl localnet src 10.0.0.0/8     # RFC1918 possible internal network' $CONF_FILE && \
-    sed -i '1iacl localnet src 172.16.0.0/12  # RFC1918 possible internal network' $CONF_FILE && \
-    sed -i '1iacl localnet src 192.168.0.0/16 # RFC1918 possible internal network' $CONF_FILE && \
-    sed -i '1iacl localnet src fc00::/7       # RFC 4193 local private network range' $CONF_FILE && \
-    sed -i '1iacl localnet src fe80::/10      # RFC 4291 link-local (directly plugged) machines' $CONF_FILE && \
-    sed -i "/#http_access allow localnet/c\http_access allow localnet" $CONF_FILE
+RUN sed -i '1icache deny all' $CONF_FILE
 
 # Configure squid to block ad servers
 RUN sed -i '1ihttp_access deny yoyo' $CONF_FILE && \
